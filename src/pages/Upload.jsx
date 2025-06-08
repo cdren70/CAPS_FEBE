@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ContohBatik from '../components/ContohBatik';
 
+const BACKEND_URL = "https://web-production-857f.up.railway.app";
+
 const Upload = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -36,7 +38,7 @@ const Upload = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post('http://127.0.0.1:8000/predict', formData, {
+      const response = await axios.post(`${BACKEND_URL}/predict`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -89,9 +91,7 @@ const Upload = () => {
               type="button"
               onClick={handleBrowseClick}
               className={`mt-2 text-xs sm:text-sm px-4 py-1.5 rounded-md ${
-                selectedFile
-                  ? 'bg-green-600 text-white'
-                  : 'bg-black text-white'
+                selectedFile ? 'bg-green-600 text-white' : 'bg-black text-white'
               }`}
             >
               {selectedFile ? 'GANTI FILE' : 'PILIH FILE'}
@@ -141,10 +141,10 @@ const Upload = () => {
               {loading ? 'MENGIDENTIFIKASI...' : 'IDENTIFIKASI SEKARANG'}
             </button>
           </div>
-          
-          <section className="">
+
+          <section>
             <p><strong>Contoh Foto Batik</strong></p><br />
-            <div className="w-full h-full sm:flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 overflow-x-visible  ">
+            <div className="w-full h-full sm:flex flex-col sm:flex-row sm:space-x-2 space-y-4 sm:space-y-0 overflow-x-visible">
               {["Parang", "Kawung", "MegaMendung", "Sidoluhur", "Truntum"].map(
                 (motif) => (
                   <ContohBatik
